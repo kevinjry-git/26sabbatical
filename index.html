@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Countdowns</title>
+<link type="image/png" sizes="32x32" rel="icon" href=".../icons8-clock-glassmorphism-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,10 +56,19 @@
     position: relative;
     z-index: 10;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 24px;
     width: 100%;
-    max-width: 520px;
+    max-width: 1080px;
+    align-items: stretch;
+  }
+
+  /* Stack vertically on narrow viewports */
+  @media (max-width: 760px) {
+    .wrapper {
+      flex-direction: column;
+      max-width: 520px;
+    }
   }
 
   /* ── Card ── */
@@ -69,6 +79,8 @@
     padding: 36px 44px 32px;
     text-align: center;
     animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
+    flex: 1 1 0;
+    min-width: 0;
   }
   .card:nth-child(2) { animation-delay: 0.12s; }
 
