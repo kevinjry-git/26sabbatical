@@ -6,222 +6,25 @@
 <title>Countdowns</title>
 <link type="image/png" sizes="32x32" rel="icon" href="icons8-clock-glassmorphism-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --border: #1e1e2e;
-    --accent-a: #e8ff47;
-    --accent-a2: #b8cc00;
-    --accent-b: #38d9f5;
-    --accent-b2: #ff6b35;
-    --text: #f0f0f8;
-    --muted: #5a5a7a;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 16px;
-    overflow-x: hidden;
-    position: relative;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 40px 40px;
-    opacity: 0.35;
-    animation: gridDrift 20s linear infinite;
-    pointer-events: none;
-  }
-
-  @keyframes gridDrift {
-    0%   { transform: translate(0,0); }
-    100% { transform: translate(40px,40px); }
-  }
-
-  .wrapper {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-    width: 100%;
-    max-width: 1080px;
-    align-items: stretch;
-  }
-
-  /* Stack vertically on narrow viewports */
-  @media (max-width: 760px) {
-    .wrapper {
-      flex-direction: column;
-      max-width: 520px;
-    }
-  }
-
-  /* ── Card ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 36px 44px 32px;
-    text-align: center;
-    animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
-    flex: 1 1 0;
-    min-width: 0;
-  }
-  .card:nth-child(2) { animation-delay: 0.12s; }
-
-  @keyframes slideUp {
-    from { opacity:0; transform:translateY(28px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
-
-  /* Coloured left accent stripe */
-  .card.sabbatical { border-left: 3px solid var(--accent-a); }
-  .card.france     { border-left: 3px solid var(--accent-b); }
-
-  /* ── Label ── */
-  .event-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  .sabbatical .event-label { color: var(--accent-a); }
-  .france     .event-label { color: var(--accent-b); }
-
-  .event-label::before, .event-label::after {
-    content: '';
-    height: 1px;
-    width: 28px;
-    background: currentColor;
-    opacity: 0.3;
-  }
-
-  /* ── Big day number ── */
-  .big-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(80px, 18vw, 130px);
-    line-height: 0.85;
-    letter-spacing: -2px;
-    display: inline-block;
-  }
-  .sabbatical .big-number {
-    color: var(--accent-a);
-    text-shadow: 0 0 40px rgba(232,255,71,0.25);
-  }
-  .france .big-number {
-    color: var(--accent-b);
-    text-shadow: 0 0 40px rgba(56,217,245,0.25);
-  }
-
-  .days-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 15px;
-    letter-spacing: 0.3em;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 20px 0;
-  }
-
-  .target-date {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 0.1em;
-    color: var(--text);
-  }
-  .sabbatical .target-date em { color: var(--accent-a); font-style: normal; }
-  .france     .target-date em { color: var(--accent-b); font-style: normal; }
-
-  /* ── hms breakdown ── */
-  .breakdown {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .unit {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 12px 6px 8px;
-  }
-
-  .unit-val {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    line-height: 1;
-    display: block;
-  }
-  .sabbatical .unit-val { color: var(--accent-a); }
-  .france     .unit-val { color: var(--accent-b); }
-
-  .unit-label {
-    font-size: 8px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 4px;
-    display: block;
-  }
-
-  /* ── Progress ── */
-  .progress-bar {
-    margin-top: 20px;
-    height: 2px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .sabbatical .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-a), var(--accent-a2));
-    border-radius: 2px;
-    transition: width 1s linear;
-  }
-  .france .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-b), var(--accent-b2));
-    border-radius: 2px;
-    transition: width 1s linear;
-  }
-
-  .progress-label {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-    font-size: 8px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="wrapper">
+  <!-- SECRET TRIP -->
+  <div class="card secret">
+    <div class="event-label">Secret Trip</div>
+    <div class="big-number" id="t-days">--</div>
+    <div class="days-label">days to go</div>
+    <div class="divider"></div>
+    <div class="target-date">5 <em>June</em> 2026 · 2pm</div>
+    <div class="breakdown">
+      <div class="unit"><span class="unit-val" id="t-hrs">--</span><span class="unit-label">Hours</span></div>
+      <div class="unit"><span class="unit-val" id="t-mins">--</span><span class="unit-label">Minutes</span></div>
+      <div class="unit"><span class="unit-val" id="t-secs">--</span><span class="unit-label">Seconds</span></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="t-prog"></div></div>
+    <div class="progress-label"><span>Today</span><span>5 Jun 14:00</span></div>
+  </div>
 
   <!-- SABBATICAL -->
   <div class="card sabbatical">
@@ -235,9 +38,10 @@
       <div class="unit"><span class="unit-val" id="s-mins">--</span><span class="unit-label">Minutes</span></div>
       <div class="unit"><span class="unit-val" id="s-secs">--</span><span class="unit-label">Seconds</span></div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="s-prog" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="s-prog"></div></div>
     <div class="progress-label"><span>Today</span><span>12 Jun 15:00</span></div>
   </div>
+
 
   <!-- FRANCE -->
   <div class="card france">
@@ -251,7 +55,7 @@
       <div class="unit"><span class="unit-val" id="f-mins">--</span><span class="unit-label">Minutes</span></div>
       <div class="unit"><span class="unit-val" id="f-secs">--</span><span class="unit-label">Seconds</span></div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="f-prog" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="f-prog"></div></div>
     <div class="progress-label"><span>Today</span><span>4 Jul</span></div>
   </div>
 
@@ -262,6 +66,8 @@
   const now0 = new Date('2026-05-26T00:00:00');
 
   const targets = [
+    { target: new Date('2026-06-05T14:00:00'), start: now0,
+      days:'t-days', hrs:'t-hrs', mins:'t-mins', secs:'t-secs', prog:'t-prog' },
     { target: new Date('2026-06-12T15:00:00'), start: now0,
       days:'s-days', hrs:'s-hrs', mins:'s-mins', secs:'s-secs', prog:'s-prog' },
     { target: new Date('2026-07-04T16:00:00'), start: now0,

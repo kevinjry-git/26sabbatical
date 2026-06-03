@@ -1,0 +1,218 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --border: #1e1e2e;
+  --accent-a: #e8ff47;
+  --accent-a2: #b8cc00;
+  --accent-b: #38d9f5;
+  --accent-b2: #ff6b35;
+  --accent-c: #c084fc;
+  --accent-c2: #9333ea;
+  --text: #f0f0f8;
+  --muted: #5a5a7a;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.35;
+  animation: gridDrift 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gridDrift {
+  0%   { transform: translate(0,0); }
+  100% { transform: translate(40px,40px); }
+}
+
+.wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
+  align-items: stretch;
+}
+
+@media (max-width: 760px) {
+  .wrapper {
+    flex-direction: column;
+    max-width: 520px;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 36px 44px 32px;
+  text-align: center;
+  animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.card:nth-child(2) { animation-delay: 0.12s; }
+.card:nth-child(3) { animation-delay: 0.24s; }
+
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.card.sabbatical { border-left: 3px solid var(--accent-a); }
+.card.france     { border-left: 3px solid var(--accent-b); }
+.card.secret     { border-left: 3px solid var(--accent-c); }
+
+.event-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.sabbatical .event-label { color: var(--accent-a); }
+.france     .event-label { color: var(--accent-b); }
+.secret     .event-label { color: var(--accent-c); }
+
+.event-label::before, .event-label::after {
+  content: '';
+  height: 1px;
+  width: 28px;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+.big-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 18vw, 130px);
+  line-height: 0.85;
+  letter-spacing: -2px;
+  display: inline-block;
+}
+.sabbatical .big-number {
+  color: var(--accent-a);
+  text-shadow: 0 0 40px rgba(232,255,71,0.25);
+}
+.france .big-number {
+  color: var(--accent-b);
+  text-shadow: 0 0 40px rgba(56,217,245,0.25);
+}
+.secret .big-number {
+  color: var(--accent-c);
+  text-shadow: 0 0 40px rgba(192,132,252,0.25);
+}
+
+.days-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 20px 0;
+}
+
+.target-date {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.1em;
+  color: var(--text);
+}
+.sabbatical .target-date em { color: var(--accent-a); font-style: normal; }
+.france     .target-date em { color: var(--accent-b); font-style: normal; }
+.secret     .target-date em { color: var(--accent-c); font-style: normal; }
+
+.breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.unit {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 12px 6px 8px;
+}
+
+.unit-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  display: block;
+}
+.sabbatical .unit-val { color: var(--accent-a); }
+.france     .unit-val { color: var(--accent-b); }
+.secret     .unit-val { color: var(--accent-c); }
+
+.unit-label {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+
+.progress-bar {
+  margin-top: 20px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+.sabbatical .progress-fill {
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-a2));
+}
+.france .progress-fill {
+  background: linear-gradient(90deg, var(--accent-b), var(--accent-b2));
+}
+.secret .progress-fill {
+  background: linear-gradient(90deg, var(--accent-c), var(--accent-c2));
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
