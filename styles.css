@@ -57,6 +57,7 @@ body::before {
   flex-wrap: wrap;
   gap: 24px;
   width: 100%;
+  min-width: 500px;
   max-width: 1400px;
   align-items: stretch;
 }
@@ -100,6 +101,7 @@ body::before {
   letter-spacing: 0.35em;
   text-transform: uppercase;
   margin-bottom: 20px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
