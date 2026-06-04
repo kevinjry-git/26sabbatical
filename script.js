@@ -1,30 +1,6 @@
 const pad = n => String(n).padStart(2,'0');
 const now0 = new Date('2026-05-26T00:00:00');
 
-async function loadConfig() {
-  const res = await fetch('config.json');
-  return res.json();
-}
-
-function createCard(config) {
-  return `
-    <div class="card ${config.class}" data-event-id="${config.id}" data-target="${config.target}">
-      <div class="event-label">${config.name}</div>
-      <div class="big-number" id="${config.id}-days">--</div>
-      <div class="days-label">days to go</div>
-      <div class="divider"></div>
-      <div class="target-date">${config.displayDate}</div>
-      <div class="breakdown">
-        <div class="unit"><span class="unit-val" id="${config.id}-hrs">--</span><span class="unit-label">Hours</span></div>
-        <div class="unit"><span class="unit-val" id="${config.id}-mins">--</span><span class="unit-label">Minutes</span></div>
-        <div class="unit"><span class="unit-val" id="${config.id}-secs">--</span><span class="unit-label">Seconds</span></div>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="${config.id}-prog"></div></div>
-      <div class="progress-label"><span>Today</span><span>${config.progressLabel}</span></div>
-    </div>
-  `;
-}
-
 function tick() {
   const now = new Date();
   document.querySelectorAll('[data-event-id][data-target]').forEach(card => {
@@ -50,12 +26,5 @@ function tick() {
   });
 }
 
-async function init() {
-  const config = await loadConfig();
-  const wrapper = document.querySelector('.wrapper');
-  wrapper.innerHTML = config.countdowns.map(createCard).join('');
-  tick();
-  setInterval(tick, 1000);
-}
-
-init();
+tick();
+setInterval(tick, 1000);
