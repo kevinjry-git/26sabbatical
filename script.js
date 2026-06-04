@@ -1,4 +1,5 @@
 const pad = n => String(n).padStart(2, '0');
+const THEMES = ['theme-a', 'theme-b', 'theme-c', 'theme-d', 'theme-e'];
 
 const MONTHS_LONG  = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -16,7 +17,8 @@ function formatProgressLabel(iso) {
   return `${d.getDate()} ${MONTHS_SHORT[d.getMonth()]} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-function buildCard({ id, label, target, theme }) {
+function buildCard({ id, label, target }, index) {
+  const theme = THEMES[index % THEMES.length];
   return `
     <div class="card ${theme}" data-event-id="${id}" data-target="${target}">
       <div class="event-label">${label}</div>
@@ -65,7 +67,7 @@ fetch('config.json')
   })
   .then(({ startDate, events }) => {
     const now0 = new Date(startDate);
-    document.querySelector('.wrapper').innerHTML = events.map(buildCard).join('');
+    document.querySelector('.wrapper').innerHTML = events.map((e, i) => buildCard(e, i)).join('');
     tick(events, now0);
     setInterval(() => tick(events, now0), 1000);
   })

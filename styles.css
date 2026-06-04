@@ -5,11 +5,15 @@
   --surface: #12121a;
   --border: #1e1e2e;
   --accent-a: #e8ff47;
-  --accent-a2: #b8cc00;
+  --accent-a2: #ff6ec7;
   --accent-b: #38d9f5;
   --accent-b2: #ff6b35;
   --accent-c: #c084fc;
-  --accent-c2: #9333ea;
+  --accent-c2: #00e5ff;
+  --accent-d: #ff6b6b;
+  --accent-d2: #ffd60a;
+  --accent-e: #34d399;
+  --accent-e2: #818cf8;
   --text: #f0f0f8;
   --muted: #5a5a7a;
 }
@@ -81,9 +85,11 @@ body::before {
   to   { opacity:1; transform:translateY(0); }
 }
 
-.card.sabbatical { border-left: 3px solid var(--accent-a); }
-.card.france     { border-left: 3px solid var(--accent-b); }
-.card.secret     { border-left: 3px solid var(--accent-c); }
+.card.theme-a { border-left: 3px solid var(--accent-c); }
+.card.theme-b { border-left: 3px solid var(--accent-a); }
+.card.theme-c { border-left: 3px solid var(--accent-b); }
+.card.theme-d { border-left: 3px solid var(--accent-d); }
+.card.theme-e { border-left: 3px solid var(--accent-e); }
 
 .event-label {
   font-family: 'Bebas Neue', sans-serif;
@@ -96,9 +102,11 @@ body::before {
   justify-content: center;
   gap: 10px;
 }
-.sabbatical .event-label { color: var(--accent-a); }
-.france     .event-label { color: var(--accent-b); }
-.secret     .event-label { color: var(--accent-c); }
+.theme-a .event-label { color: var(--accent-c); }
+.theme-b .event-label { color: var(--accent-a); }
+.theme-c .event-label { color: var(--accent-b); }
+.theme-d .event-label { color: var(--accent-d); }
+.theme-e .event-label { color: var(--accent-e); }
 
 .event-label::before, .event-label::after {
   content: '';
@@ -115,18 +123,11 @@ body::before {
   letter-spacing: -2px;
   display: inline-block;
 }
-.sabbatical .big-number {
-  color: var(--accent-a);
-  text-shadow: 0 0 40px rgba(232,255,71,0.25);
-}
-.france .big-number {
-  color: var(--accent-b);
-  text-shadow: 0 0 40px rgba(56,217,245,0.25);
-}
-.secret .big-number {
-  color: var(--accent-c);
-  text-shadow: 0 0 40px rgba(192,132,252,0.25);
-}
+.theme-a .big-number { color: var(--accent-c); text-shadow: 0 0 40px rgba(192,132,252,0.25); }
+.theme-b .big-number { color: var(--accent-a); text-shadow: 0 0 40px rgba(232,255,71,0.25); }
+.theme-c .big-number { color: var(--accent-b); text-shadow: 0 0 40px rgba(56,217,245,0.25); }
+.theme-d .big-number { color: var(--accent-d); text-shadow: 0 0 40px rgba(255,107,107,0.25); }
+.theme-e .big-number { color: var(--accent-e); text-shadow: 0 0 40px rgba(52,211,153,0.25); }
 
 .days-label {
   font-family: 'Bebas Neue', sans-serif;
@@ -148,9 +149,11 @@ body::before {
   letter-spacing: 0.1em;
   color: var(--text);
 }
-.sabbatical .target-date em { color: var(--accent-a); font-style: normal; }
-.france     .target-date em { color: var(--accent-b); font-style: normal; }
-.secret     .target-date em { color: var(--accent-c); font-style: normal; }
+.theme-a .target-date em { color: var(--accent-c); font-style: normal; }
+.theme-b .target-date em { color: var(--accent-a); font-style: normal; }
+.theme-c .target-date em { color: var(--accent-b); font-style: normal; }
+.theme-d .target-date em { color: var(--accent-d); font-style: normal; }
+.theme-e .target-date em { color: var(--accent-e); font-style: normal; }
 
 .breakdown {
   display: grid;
@@ -172,9 +175,11 @@ body::before {
   line-height: 1;
   display: block;
 }
-.sabbatical .unit-val { color: var(--accent-a); }
-.france     .unit-val { color: var(--accent-b); }
-.secret     .unit-val { color: var(--accent-c); }
+.theme-a .unit-val { color: var(--accent-c); }
+.theme-b .unit-val { color: var(--accent-a); }
+.theme-c .unit-val { color: var(--accent-b); }
+.theme-d .unit-val { color: var(--accent-d); }
+.theme-e .unit-val { color: var(--accent-e); }
 
 .unit-label {
   font-size: 8px;
@@ -198,15 +203,11 @@ body::before {
   border-radius: 2px;
   transition: width 1s linear;
 }
-.sabbatical .progress-fill {
-  background: linear-gradient(90deg, var(--accent-a), var(--accent-a2));
-}
-.france .progress-fill {
-  background: linear-gradient(90deg, var(--accent-b), var(--accent-b2));
-}
-.secret .progress-fill {
-  background: linear-gradient(90deg, var(--accent-c), var(--accent-c2));
-}
+.theme-a .progress-fill { background: linear-gradient(90deg, var(--accent-c), var(--accent-c2)); }
+.theme-b .progress-fill { background: linear-gradient(90deg, var(--accent-a), var(--accent-a2)); }
+.theme-c .progress-fill { background: linear-gradient(90deg, var(--accent-b), var(--accent-b2)); }
+.theme-d .progress-fill { background: linear-gradient(90deg, var(--accent-d), var(--accent-d2)); }
+.theme-e .progress-fill { background: linear-gradient(90deg, var(--accent-e), var(--accent-e2)); }
 
 .progress-label {
   display: flex;
