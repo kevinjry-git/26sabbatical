@@ -2,8 +2,8 @@
   "startDate": "2026-05-26T00:00:00",
   "events": [
     { "id": "f", "label": "France",      "target": "2026-07-04T16:00:00" },
-    { "id": "s", "label": "St Jean de Monts", "target": "2026-07-09T12:00:00" },
-    { "id": "m", "label": "Les Mouettes", "target": "2026-07-18T12:00:00" }
+    { "id": "m", "label": "Carantec/Les Mouettes", "target": "2026-07-18T12:00:00" },
+    { "id": "s", "label": "Ferry Home", "target": "2026-07-24T12:00:00" }
     
   ]
 }
